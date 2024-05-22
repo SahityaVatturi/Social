@@ -3,7 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 import bodyParser from "body-parser";
-
+import router from "./src/routes/index.js";
 const app = express();
 
 app.use(cors());
@@ -22,9 +22,11 @@ app.get("/", (req, res) => {
   res.send("Welcome to root url!");
 });
 
+app.use("/", router);
+
 app.listen(process.env.PORT, (error) => {
   if (error) {
     console.log("Error occurred, server can't start", error);
     throw error;
-  } else console.log(`Main Server is running on port ${process.env.PORT}`);
+  } else console.log(`Server is running on port ${process.env.PORT}`);
 });
