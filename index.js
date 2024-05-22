@@ -5,6 +5,7 @@ dotenv.config();
 import bodyParser from "body-parser";
 import router from "./src/routes/index.js";
 const app = express();
+import { connect } from "./src/database/connection.js";
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -21,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.send("Welcome to root url!");
 });
-
+connect();
 app.use("/", router);
 
 app.listen(process.env.PORT, (error) => {

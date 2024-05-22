@@ -1,8 +1,15 @@
 import mongoose from "mongoose";
+mongoose.set("debug", true);
 
 export const connect = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_KEY);
+    const options = {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 30000, // 30 seconds
+      socketTimeoutMS: 45000, // 45 seconds
+    };
+    await mongoose.connect(process.env.MONGODB_KEY, options);
     console.log("Connected to MongoDB");
     mongoose.connection.on("disconnected", () => {
       console.log("MongoDB disconnected!");
